@@ -1,23 +1,24 @@
-
-
 var topics = ["Game of Thrones", "The Sopranos", "Breaking Bad", "The Wire", "True Detective",
     "Always Sunny In Philadelphia", "The Leftovers", "South Park", "Rick and Morty", " Spongebob"];
 
-//Generate buttons from the topics array and appends them to the #buttonContainer
+//Generate buttons from the topics array and append them to the #buttonContainer
 function displayButtons() {
+    $("#buttonContainer").empty();
     topics.forEach(function (topic) {
         var button = $("<button>");
         //console.log(topic);
         button.text(topic);
         button.addClass("topicButton");
+        //Add click handler to button
+        button.click(function () {
+            fetchGifs(topic);
+        })
 
         $("#buttonContainer").append(button);
     });
 }
 
-displayButtons();
-
-//Given a topic, make an API call to giphy and return an array 10 of giph objects
+//Given a topic, make an API call to giphy and return an array of 10 gif objects
 function fetchGifs(topic) {
     const APIkey = "mvYexwHDWsrMpKSWSF9IvfQi5d5LOfQE";
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIkey + "&q=" + topic + "&limit=10&offset=0&rating=PG-13&lang=en";
@@ -42,7 +43,7 @@ function displayGifs(gifs) {
     })
 }
 
-//Given a gif object, build the gif to display on the page
+//Given a gif object, build the gifTile to display on the page with the still, the gif, the rating
 function buildGifTile(gifObj) {
     var gifTile = $("<div>");
     gifTile.addClass("gifTile");
@@ -61,23 +62,25 @@ function buildGifTile(gifObj) {
         }
     });
 
-    gifTile.append(gif);
-
     var rating = $("<p>").text("Rating: " + gifObj.rating);
 
+    gifTile.append(gif);
     gifTile.append(rating);
 
     return gifTile;
 }
+displayButtons();
 
 //Create function that adds a topic to the topic array. Call function to append buttons to #buttonContainer
 
-//Add event listener for topic button clicks
+//Add event listener for add topic button click
+$("#submitButton").on("click", function (e) {
+    e.preventDefault();
 
-$(".topicButton").on("click", function () {
-    var topic = $(this).text();
-    console.log(topic);
-    fetchGifs(topic);
+    var newTopic = $("#newTopic").val();
+
+    topics.push(newTopic);
+    displayButtons();
 })
 
-//Add event listener for add topic button click
+
