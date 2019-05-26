@@ -32,27 +32,42 @@ function fetchGifs(topic) {
 
 }
 
-
-//Loop through the array of giph objects and append each to the #gifContainer
+//Loop through the array of giph objects, build the gif tile, and append each to the #gifContainer
 function displayGifs(gifs) {
     $("#gifContainer").empty();
 
     gifs.forEach(function (gifObj) {
-        var gifTile = $("<img>");
-        gifTile.attr("src", gifObj.images.fixed_height_still.url);
-        gifTile.attr("data-gifURL", gifObj.embed_url);
-        gifTile.addClass("gifTile");
-        gifTile.click(function () {
-            if (gifTile.attr("src") === gifObj.images.fixed_height_still.url) {
-                gifTile.attr("src", gifObj.images.fixed_height.url)
-            }
-            else {
-                gifTile.attr("src", gifObj.images.fixed_height_still.url);
-            }
-        });
-
+        var gifTile = buildGifTile(gifObj);
         $("#gifContainer").append(gifTile);
     })
+}
+
+//Given a gif object, build the gif to display on the page
+function buildGifTile(gifObj) {
+    var gifTile = $("<div>");
+    gifTile.addClass("gifTile");
+
+    var gif = $("<img>");
+    gif.attr("src", gifObj.images.fixed_height_still.url);
+    gif.attr("data-gifURL", gifObj.embed_url);
+
+    //Add click handler that plays or stops the gif
+    gif.click(function () {
+        if (gif.attr("src") === gifObj.images.fixed_height_still.url) {
+            gif.attr("src", gifObj.images.fixed_height.url)
+        }
+        else {
+            gif.attr("src", gifObj.images.fixed_height_still.url);
+        }
+    });
+
+    gifTile.append(gif);
+
+    var rating = $("<p>").text("Rating: " + gifObj.rating);
+
+    gifTile.append(rating);
+
+    return gifTile;
 }
 
 //Create function that adds a topic to the topic array. Call function to append buttons to #buttonContainer
