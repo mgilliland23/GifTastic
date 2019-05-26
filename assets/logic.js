@@ -3,18 +3,18 @@ var topics = ["Game of Thrones", "The Sopranos", "Breaking Bad", "The Wire", "Tr
 
 //Generate buttons from the topics array and append them to the #buttonContainer
 function displayButtons() {
-    $("#buttonContainer").empty();
+    $("#button-container").empty();
     topics.forEach(function (topic) {
         var button = $("<button>");
         //console.log(topic);
         button.text(topic);
-        button.addClass("topicButton");
+        button.addClass("topic-button btn btn-primary");
         //Add click handler to button
         button.click(function () {
             fetchGifs(topic);
         })
 
-        $("#buttonContainer").append(button);
+        $("#button-container").append(button);
     });
 }
 
@@ -35,18 +35,18 @@ function fetchGifs(topic) {
 
 //Loop through the array of giph objects, build the gif tile, and append each to the #gifContainer
 function displayGifs(gifs) {
-    $("#gifContainer").empty();
+    $("#gif-container").empty();
 
     gifs.forEach(function (gifObj) {
         var gifTile = buildGifTile(gifObj);
-        $("#gifContainer").append(gifTile);
+        $("#gif-container").append(gifTile);
     })
 }
 
 //Given a gif object, build the gifTile to display on the page with the still, the gif, the rating
 function buildGifTile(gifObj) {
     var gifTile = $("<div>");
-    gifTile.addClass("gifTile");
+    gifTile.addClass("gif-tile");
 
     var gif = $("<img>");
     gif.attr("src", gifObj.images.fixed_height_still.url);
@@ -69,15 +69,16 @@ function buildGifTile(gifObj) {
 
     return gifTile;
 }
-displayButtons();
-
 //Create function that adds a topic to the topic array. Call function to append buttons to #buttonContainer
 
+
+displayButtons();
+
 //Add event listener for add topic button click
-$("#submitButton").on("click", function (e) {
+$("#submit-button").on("click", function (e) {
     e.preventDefault();
 
-    var newTopic = $("#newTopic").val();
+    var newTopic = $("#new-topic").val();
 
     topics.push(newTopic);
     displayButtons();

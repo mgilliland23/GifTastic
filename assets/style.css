@@ -1,0 +1,60 @@
+.navbar-brand {
+    color: rgb(76, 86, 106) !important;
+}
+
+#button-container {
+    margin-top: 80px;
+}
+
+.gif-tile {
+    float: left;
+    margin: 5px;
+    color: rgb(76, 86, 106) !important;
+}
+
+.topic-button {
+    margin: 5px 5px 5px 0;
+}
+
+.form-control-plaintext, .form-control, input {
+    color: rgb(76, 86, 106) !important;
+}
+
+form {
+    margin: 20px 5px;
+}
+
+.btn {
+    background-color: rgb(136, 192, 208) !important;
+    color: rgb(59, 66, 82) !important;
+    border-color: rgb(136, 192, 208) !important;
+}
+
+html body {
+    background-color: #ECEFF4 !important;
+    color: rgb(59, 66, 82) !important;
+    font-family: "Rubik" !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: white;
+    border-color: rgb(59, 66, 82);
+}
+
+#submit-button {
+    width: 150px;
+    text-align: center;
+    background-color: rgb(255, 255, 255) !important;
+    color: rgb(76, 86, 106);
+    border-color: rgb(76, 86, 106) !important;
+}
+
+.btn:focus, .btn-primary:focus {
+    outline: rgb(76, 86, 106) !important;
+    box-shadow: none !important;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: rgb(76, 86, 106)
+}

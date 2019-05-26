@@ -6,25 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GifTastic</title>
-    <link rel="stylesheet" href="assets/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+
 </head>
 
 <body>
+    <nav class="navbar navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#">
+
+            GifTastic
+        </a>
+    </nav>
+
     <div class="container">
-        <div id="buttonContainer">
+        <div id="button-container">
 
         </div>
 
-        <form>
-            Add a new show:<br>
-            <input type="text" name="newTopic" id="newTopic">
-            <input type="submit" value="Submit" id="submitButton">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="new-topic">Add New Show: </label>
+                <input type="text" class="form-control mb-2 mx-3" id="new-topic">
+                <button type="submit" id="submit-button" class="btn btn-primary mb-2">Add</button>
+            </div>
         </form>
 
-        <div id="gifContainer">
+        <div id="gif-container">
 
         </div>
     </div>
