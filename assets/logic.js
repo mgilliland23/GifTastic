@@ -38,17 +38,16 @@ function displayGifs(gifs) {
     $("#gif-container").empty();
 
     gifs.forEach(function (gifObj) {
-        var gifTile = buildGifTile(gifObj);
-        $("#gif-container").append(gifTile);
+        var gifCard = buildGifCard(gifObj);
+        $("#gif-container").append(gifCard);
     })
 }
 
-//Given a gif object, build the gifTile to display on the page with the still, the gif, the rating
-function buildGifTile(gifObj) {
-    var gifTile = $("<div>");
-    gifTile.addClass("gif-tile");
+//Given a gif object, build the gifCard to display on the page with the still, the gif, the rating
+function buildGifCard(gifObj) {
+    var gifCard = $("<div>").addClass("gif-card card");
 
-    var gif = $("<img>");
+    var gif = $("<img>").addClass("card-img-top");
     gif.attr("src", gifObj.images.fixed_height_still.url);
     gif.attr("data-gifURL", gifObj.embed_url);
 
@@ -62,12 +61,26 @@ function buildGifTile(gifObj) {
         }
     });
 
+    // <div class="card" style="width: 18rem;">
+    //     <img class="card-img-top" src="..." alt="Card image cap">
+    //         <div class="card-body">
+    //             <h5 class="card-title">Card title</h5>
+    //             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    //             <a href="#" class="btn btn-primary">Go somewhere</a>
+    //         </div>
+    // </div>
+
+    var cardBody = $("<div>").addClass("card-body");
+    var title = $("<h5>").text(gifObj.title).addClass("card-title");
     var rating = $("<p>").text("Rating: " + gifObj.rating);
 
-    gifTile.append(gif);
-    gifTile.append(rating);
+    cardBody.append(title);
+    cardBody.append(rating);
 
-    return gifTile;
+    gifCard.append(gif);
+    gifCard.append(cardBody);
+
+    return gifCard;
 }
 //Create function that adds a topic to the topic array. Call function to append buttons to #buttonContainer
 
@@ -77,10 +90,9 @@ displayButtons();
 //Add event listener for add topic button click
 $("#submit-button").on("click", function (e) {
     e.preventDefault();
-
     var newTopic = $("#new-topic").val();
-
     topics.push(newTopic);
+    $("#new-topic").val("");
     displayButtons();
 })
 

@@ -6,8 +6,13 @@
     margin-top: 80px;
 }
 
-.gif-tile {
+#gif-container {
+    margin-bottom: 40px;
+}
+
+.gif-card {
     float: left;
+    width: 18rem;
     margin: 5px;
     color: rgb(76, 86, 106) !important;
 }
