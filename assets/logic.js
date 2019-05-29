@@ -1,5 +1,6 @@
-var topics = ["Game of Thrones", "The Sopranos", "Breaking Bad", "The Wire", "True Detective",
-    "Always Sunny In Philadelphia", "The Leftovers", "South Park", "Rick and Morty", " Spongebob"];
+var topics = ["It's Always Sunny In Philadelphia", "South Park", "Rick and Morty", " Spongebob",
+    "The Sopranos", "Breaking Bad", "East Bound and Down", "True Detective", "Game of Thrones",
+    "The Leftovers"];
 
 //Generate buttons from the topics array and append them to the #buttonContainer
 function displayButtons() {
@@ -18,10 +19,10 @@ function displayButtons() {
     });
 }
 
-//Given a topic, make an API call to giphy and return an array of 10 gif objects
+//Given a topic, make an API call to giphy and return an array of 12 gif objects
 function fetchGifs(topic) {
     const APIkey = "mvYexwHDWsrMpKSWSF9IvfQi5d5LOfQE";
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIkey + "&q=" + topic + "&limit=10&offset=0&rating=PG-13&lang=en";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIkey + "&q=" + topic + "&limit=12&offset=0&rating=PG-13&lang=en";
 
     $.ajax({
         method: "GET",
@@ -33,7 +34,7 @@ function fetchGifs(topic) {
 
 }
 
-//Loop through the array of giph objects, build the gif tile, and append each to the #gifContainer
+//Loop through the array of gif objects, build the gif card, and append each to the #gifContainer
 function displayGifs(gifs) {
     $("#gif-container").empty();
 
@@ -43,7 +44,7 @@ function displayGifs(gifs) {
     })
 }
 
-//Given a gif object, build the gifCard to display on the page with the still, the gif, the rating
+//Given a gif object, build the gifCard to display on the page with the still, the title, the rating
 function buildGifCard(gifObj) {
     var gifCard = $("<div>").addClass("gif-card card");
 
@@ -51,28 +52,14 @@ function buildGifCard(gifObj) {
     gif.attr("src", gifObj.images.fixed_height_still.url);
     gif.attr("data-gifURL", gifObj.embed_url);
 
-    //Add click handler that plays or stops the gif
+    //Add click handler that plays the gif in a modal
     gif.click(function () {
-        if (gif.attr("src") === gifObj.images.fixed_height_still.url) {
-            gif.attr("src", gifObj.images.fixed_height.url)
-        }
-        else {
-            gif.attr("src", gifObj.images.fixed_height_still.url);
-        }
+        showGifModal(gifObj.images.original.url);
     });
-
-    // <div class="card" style="width: 18rem;">
-    //     <img class="card-img-top" src="..." alt="Card image cap">
-    //         <div class="card-body">
-    //             <h5 class="card-title">Card title</h5>
-    //             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    //             <a href="#" class="btn btn-primary">Go somewhere</a>
-    //         </div>
-    // </div>
 
     var cardBody = $("<div>").addClass("card-body");
     var title = $("<h5>").text(gifObj.title).addClass("card-title");
-    var rating = $("<p>").text("Rating: " + gifObj.rating);
+    var rating = $("<p>").text("Rating: " + gifObj.rating.toUpperCase());
 
     cardBody.append(title);
     cardBody.append(rating);
@@ -82,12 +69,18 @@ function buildGifCard(gifObj) {
 
     return gifCard;
 }
-//Create function that adds a topic to the topic array. Call function to append buttons to #buttonContainer
 
+//Given a gif url, show this gif on the page using a modal 
+function showGifModal(url) {
+    var gif = $("<img>");
+    gif.attr("src", url);
 
-displayButtons();
+    $(".modal-body").html(gif);
 
-//Add event listener for add topic button click
+    $('#gif-modal').modal('show')
+}
+
+//Add event listener for add topic button click and add the users input to the gloabl topics array
 $("#submit-button").on("click", function (e) {
     e.preventDefault();
     var newTopic = $("#new-topic").val();
@@ -95,5 +88,9 @@ $("#submit-button").on("click", function (e) {
     $("#new-topic").val("");
     displayButtons();
 })
+
+//Call the display buttons function to build the initial list of buttons
+displayButtons();
+
 
 

@@ -12,7 +12,8 @@
 
 .gif-card {
     float: left;
-    width: 18rem;
+    width: 360px;
+    height: 22rem;
     margin: 5px;
     color: rgb(76, 86, 106) !important;
 }
@@ -62,4 +63,11 @@ html body {
 .form-control:focus {
     box-shadow: none;
     border-color: rgb(76, 86, 106)
+}
+
+.modal-content {
+    max-width: 100%;
+    width: auto !important;
+    display: inline-block;
+    margin: 0 auto;
 }
